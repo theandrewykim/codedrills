@@ -1,3 +1,4 @@
+require 'pry'
 class Node
   attr_accessor :next_node, :value
 
@@ -13,7 +14,7 @@ class LinkedList
     @head = Node.new(value)
   end
 
-  def display_list
+  def display
     current_node = @head
     list_array = []
     while current_node.next_node != nil
@@ -69,15 +70,52 @@ end
 
   end
 
+  def length
+  current_node = @head
+  array = []
+  while current_node.next_node != nil
+    array << current_node.value
+    current_node = current_node.next_node
+  end
+  array << current_node.value
+  array.length
+
+  end
+
+  def remove_dups_no_hash
+    benchmark = @head
+    current = benchmark.next_node
+    remove_count = 1
+    changes = length - 2
+    changes.times do
+      while current != nil
+        if benchmark.value == current.value
+          remove_count += 1
+       end
+      current = current.next_node
+      end
+      if remove_count > 1
+        remove_count.times do
+          remove(benchmark.value)
+        end
+      end
+      remove_count = 0
+      benchmark = benchmark.next_node
+      current = benchmark.next_node
+     end
+
+   end
+
+
 end
 
 list = LinkedList.new(5)
-list.add(7)
+list.add(6)
 list.add(11)
 list.add(9)
 list.add(11)
-puts list.display_list
+puts list.display
 list.add(11)
-puts list.display_list
-list.remove_dups
-puts list.display_list
+puts list.display
+list.remove_dups_no_hash
+puts list.display

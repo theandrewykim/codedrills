@@ -28,18 +28,24 @@ end
 
 # To remove data values without using a temporary structure, I must iterate twice in order to find copies to remove each value.
 def remove_dups_no_hash
-  benchmark = @head
-  current = @head
-  remove_count = 0
-  while benchmark != nil
-    while current != nil
-      if benchmark.value == current.value
-       remove_count += 1
-      end
+    benchmark = @head
+    current = benchmark.next_node
+    remove_count = 1
+    changes = length - 2
+    changes.times do
+      while current != nil
+        if benchmark.value == current.value
+          remove_count += 1
+       end
       current = current.next_node
-      remove_count.times do {remove(benchmark.value)}
+      end
+      if remove_count > 1
+        remove_count.times do
+          remove(benchmark.value)
+        end
+      end
       remove_count = 0
-    end
-    benchmark = benchmark.next_node
+      benchmark = benchmark.next_node
+      current = benchmark.next_node
+     end
   end
-end

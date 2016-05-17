@@ -107,6 +107,16 @@ end
    end
 
 
+   def nth_to_last(n)
+    iterations = length - n
+    current = @head
+    iterations.times do
+      current = current.next_node
+    end
+    current.value
+
+  end
+
 end
 
 list = LinkedList.new(5)
@@ -119,3 +129,4 @@ list.add(11)
 puts list.display
 list.remove_dups_no_hash
 puts list.display
+print list.nth_to_last(2)

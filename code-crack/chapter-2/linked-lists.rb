@@ -9,6 +9,7 @@ class Node
 end
 
 class LinkedList
+  attr_accessor :head
 
   def initialize(value)
     @head = Node.new(value)
@@ -108,25 +109,61 @@ end
 
 
    def nth_to_last(n)
-    iterations = length - n
-    current = @head
-    iterations.times do
-      current = current.next_node
-    end
-    current.value
+     iterations = length - n
+     current = @head
+     iterations.times do
+       current = current.next_node
+     end
+     current.value
+   end
 
-  end
+   def add_lists(list1, list2)
+    list1current = list1.head
+    list2current = list2.head
+    carries = 0
+    sum = nil
+    while list1current != nil
+      if list1current.value+ list2current.value + carries < 10
+        digit_sum = list1current.value + list2current.value + carries
+        carries = 0
+      else
+        digit_sum = (list1current.value + list2current.value) % 10 + carries
+        carries = 1
+      end
+      if sum == nil
+        sum = LinkedList.new(digit_sum)
+      else
+        sum.add(digit_sum)
+        if carries == 1 && list1current.next_node == nil
+          sum.add(1)
+        end
+      end
+      list1current = list1current.next_node
+      list2current = list2current.next_node
+    end
+    sum.display
+    end
+
 
 end
 
-list = LinkedList.new(5)
-list.add(6)
-list.add(11)
-list.add(9)
-list.add(11)
-puts list.display
-list.add(11)
-puts list.display
-list.remove_dups_no_hash
-puts list.display
-print list.nth_to_last(2)
+# list = LinkedList.new(5)
+# list.add(6)
+# list.add(11)
+# list.add(9)
+# list.add(11)
+# puts list.display
+# list.add(11)
+# puts list.display
+
+fiveonethreesix = LinkedList.new(6)
+fiveonethreesix.add(3)
+fiveonethreesix.add(1)
+fiveonethreesix.add(5)
+
+twoninefivefour = LinkedList.new(4)
+twoninefivefour.add(5)
+twoninefivefour.add(9)
+twoninefivefour.add(2)
+
+fiveonethreesix.add_lists(fiveonethreesix, twoninefivefour)

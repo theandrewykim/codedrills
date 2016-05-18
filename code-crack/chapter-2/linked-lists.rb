@@ -122,7 +122,7 @@ end
     list2current = list2.head
     carries = 0
     sum = nil
-    while list1current != nil
+    while list1current != nil && list2current != nil
       if list1current.value+ list2current.value + carries < 10
         digit_sum = list1current.value + list2current.value + carries
         carries = 0
@@ -164,6 +164,5 @@ fiveonethreesix.add(5)
 twoninefivefour = LinkedList.new(4)
 twoninefivefour.add(5)
 twoninefivefour.add(9)
-twoninefivefour.add(2)
 
 fiveonethreesix.add_lists(fiveonethreesix, twoninefivefour)
